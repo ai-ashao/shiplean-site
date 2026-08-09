@@ -1,5 +1,7 @@
 # ShipLean Site
 
+[简体中文](README.zh-CN.md)
+
 Public bilingual marketing website for ShipLean, an Agent-ready TanStack Start SaaS scaffold.
 
 This repository contains the website only. The commercial scaffold and its bundled Skill belong in a separate private repository.
