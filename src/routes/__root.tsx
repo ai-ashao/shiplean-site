@@ -28,6 +28,7 @@ function RootLayout() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const chinese = pathname === '/zh' || pathname.startsWith('/zh/')
   const home = chinese ? '/zh' : '/'
+
   return (
     <div className="site-shell">
       <header className="site-header">
@@ -36,24 +37,40 @@ function RootLayout() {
           SHIPLEAN
         </Link>
         <nav aria-label={chinese ? '主导航' : 'Primary navigation'}>
-          <a href={`${home}#workflow`}>{chinese ? '使用方式' : 'Workflow'}</a>
-          <a href={`${home}#included`}>{chinese ? '包含内容' : 'Included'}</a>
-          <a href={`${home}#pricing`}>{chinese ? '定价' : 'Pricing'}</a>
+          <a href={`${home}#why-seo-first`} data-nav-secondary>
+            {chinese ? 'SEO-first' : 'Why SEO-first'}
+          </a>
+          <a href={`${home}#modes`}>{chinese ? '模式' : 'Modes'}</a>
+          <a href={`${home}#workflow`} data-nav-mobile-hide>
+            {chinese ? '工作流' : 'Workflow'}
+          </a>
+          <a href={`${home}#contracts`} data-nav-secondary>
+            {chinese ? '契约' : 'Contracts'}
+          </a>
+          <a className="github-link" href={site.githubUrl} rel="noreferrer" target="_blank">
+            GitHub ↗
+          </a>
           <Link className="locale-link" to={chinese ? '/' : '/zh'}>
             {chinese ? 'EN' : '中文'}
           </Link>
         </nav>
       </header>
+
       <main>
         <Outlet />
       </main>
+
       <footer className="site-footer">
         <div className="brand footer-brand">
           <span className="brand-cut" aria-hidden="true" />
           SHIPLEAN
         </div>
-        <p>{chinese ? '少一点脚手架，多一点产品。' : 'Less framework. More product.'}</p>
-        <span>TanStack Start / Cloudflare-first</span>
+        <p>
+          {chinese
+            ? 'SEO-first 建站底座 · Tool + SaaS · 面向编程 Agent'
+            : 'SEO-first website foundation · Tool + SaaS · Built for coding agents'}
+        </p>
+        <span>TanStack Start / Cloudflare-first / pnpm verify</span>
       </footer>
     </div>
   )
@@ -66,10 +83,22 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: site.name,
+    url: site.url,
+    sameAs: [site.githubUrl],
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Web',
     description: site.description,
+    featureList: [
+      'SEO-first Tool Mode',
+      'SEO-first SaaS acquisition surfaces',
+      'Tool SEO Brief contract',
+      'Explicit indexability',
+      'Internal-link graph verification',
+      'Canonical and hreflang infrastructure',
+      'TanStack Start and Cloudflare-first runtime',
+    ],
   }
+
   return (
     <html lang={language}>
       <head>
@@ -87,8 +116,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
 function NotFound() {
   return (
     <section className="not-found">
-      <span>404 / CUT FROM SCOPE</span>
-      <h1>This page did not make the MVP.</h1>
+      <span>404 / OUTSIDE THE PAGE MAP</span>
+      <h1>This route is not part of the public site.</h1>
       <Link className="button button-dark" to="/">
         Return home
       </Link>

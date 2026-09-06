@@ -5,9 +5,9 @@ import { pageHead } from '@/lib/seo'
 export const Route = createFileRoute('/')({
   head: () =>
     pageHead({
-      title: 'Build the product, not the framework',
+      title: 'SEO-First Website Foundation for Coding Agents',
       description:
-        'Download an Agent-ready TanStack Start SaaS scaffold and use its bundled Skill to build a focused, verified MVP.',
+        'ShipLean is an Agent-ready TanStack Start foundation for SEO-first tool sites and SaaS acquisition pages, with explicit indexability and verification.',
       path: '/',
       alternates: [
         { locale: 'en', path: '/' },

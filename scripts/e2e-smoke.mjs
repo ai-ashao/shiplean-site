@@ -42,11 +42,20 @@ async function request(path) {
 
 try {
   await waitForServer()
+
   const home = await request('/')
   assert(home.response.status === 200, 'Home must return 200.')
-  assert(home.text.includes('Build the product'), 'English product promise is missing.')
+  assert(
+    home.text.includes('The SEO-first website foundation for coding agents.'),
+    'English SEO-first positioning is missing.',
+  )
+  assert(home.text.includes('TOOL MODE'), 'Tool Mode positioning is missing.')
+  assert(home.text.includes('SAAS MODE'), 'SaaS Mode positioning is missing.')
+  assert(home.text.includes('$shiplean-quick-start'), 'Agent Skill callout is missing.')
   assert(home.text.includes(`rel="canonical" href="${baseUrl}/"`), 'Canonical is missing.')
+  assert(/hrefLang="zh-CN"/i.test(home.text), 'English page Chinese hreflang is missing.')
   assert(home.text.includes('application/ld+json'), 'Structured data is missing.')
+  assert(home.text.includes('Internal links are a contract'), 'SEO contract detail is missing.')
   assert(
     home.response.headers.get('x-content-type-options') === 'nosniff',
     'Security headers are missing.',
@@ -59,21 +68,32 @@ try {
   const chinese = await request('/zh')
   assert(chinese.response.status === 200, 'Chinese page must return 200.')
   assert(chinese.text.includes('<html lang="zh-CN">'), 'Chinese document language is missing.')
-  assert(chinese.text.includes('把时间花在产品上'), 'Chinese product promise is missing.')
+  assert(
+    chinese.text.includes('给编程 Agent 用的 SEO-first 建站底座。'),
+    'Chinese SEO-first positioning is missing.',
+  )
+  assert(chinese.text.includes('TOOL MODE'), 'Chinese Tool Mode section is missing.')
+  assert(chinese.text.includes('SAAS MODE'), 'Chinese SaaS Mode section is missing.')
   assert(/hrefLang="zh-CN"/i.test(chinese.text), 'Chinese hreflang is missing.')
+  assert(/hrefLang="en"/i.test(chinese.text), 'English reciprocal hreflang is missing.')
 
   const robots = await request('/robots.txt')
   assert(
     robots.response.status === 200 && robots.text.includes('/sitemap.xml'),
     'Robots is invalid.',
   )
+
   const sitemap = await request('/sitemap.xml')
   assert(
-    sitemap.response.status === 200 && sitemap.text.includes(`${baseUrl}/zh`),
+    sitemap.response.status === 200 &&
+      sitemap.text.includes(`${baseUrl}/`) &&
+      sitemap.text.includes(`${baseUrl}/zh`),
     'Sitemap is invalid.',
   )
 
-  console.log('E2E smoke passed: bilingual landing, metadata, security, robots, and sitemap.')
+  console.log(
+    'E2E smoke passed: SEO-first bilingual positioning, product modes, metadata, security, robots, and sitemap.',
+  )
 } finally {
   server.kill('SIGTERM')
   await Promise.race([

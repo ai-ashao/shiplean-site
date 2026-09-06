@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { absoluteUrl, parseSiteUrl } from '../src/lib/site'
+import { absoluteUrl, parseSiteUrl, site } from '../src/lib/site'
 
 describe('site contracts', () => {
   it('normalizes a configured site URL', () => {
@@ -13,5 +13,10 @@ describe('site contracts', () => {
 
   it('creates absolute public URLs', () => {
     expect(absoluteUrl('/zh')).toBe('https://shiplean.dev/zh')
+  })
+
+  it('points the marketing site at the public ShipLean foundation repository', () => {
+    expect(site.githubUrl).toBe('https://github.com/ai-ashao/shiplean')
+    expect(site.description).toContain('SEO-first')
   })
 })

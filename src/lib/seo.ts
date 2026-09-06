@@ -6,8 +6,9 @@ export function pageHead(input: {
   path: string
   alternates: Array<{ locale: string; path: string }>
 }) {
-  const title = `${input.title} | ${site.name}`
+  const title = input.title === site.name ? site.name : `${input.title} | ${site.name}`
   const canonical = absoluteUrl(input.path)
+
   return {
     meta: [
       { title },
@@ -17,6 +18,8 @@ export function pageHead(input: {
       { property: 'og:url', content: canonical },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title },
+      { name: 'twitter:description', content: input.description },
     ],
     links: [
       { rel: 'canonical', href: canonical },

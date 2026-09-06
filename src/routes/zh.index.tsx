@@ -5,9 +5,9 @@ import { pageHead } from '@/lib/seo'
 export const Route = createFileRoute('/zh/')({
   head: () =>
     pageHead({
-      title: '把时间花在产品上，不是框架上',
+      title: '面向编程 Agent 的 SEO-first 建站底座',
       description:
-        '下载面向 Agent 的 TanStack Start SaaS 脚手架，调用内置 Skill，快速做出范围清晰、可以验证的 MVP。',
+        'ShipLean 是面向编程 Agent 的 SEO-first TanStack Start 建站底座，用于工具站和 SaaS 获客页，固化页面规划、内链、收录与验证契约。',
       path: '/zh',
       alternates: [
         { locale: 'en', path: '/' },
